@@ -1,0 +1,23 @@
+config:
+  target: "https://us21.api.mailchimp.com/3.0"
+  phases:
+    - duration: 30
+      arrivalRate: 5
+      name: Warm up
+    - duration: 30
+      arrivalRate: 8
+      rampTo: 50
+      name: Ramp up load
+    - duration: 15
+      arrivalRate: 13
+      name: Sustained load
+
+scenarios:
+  - name: "Load Test"
+    flow:
+      - get:
+          url: "/campaigns"
+          headers:
+            Authorization: "Bearer <<token>>"
+          qs:
+            count: 10
